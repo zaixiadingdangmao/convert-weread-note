@@ -6,10 +6,13 @@ export default defineComponent({
 	props: {},
 	setup() {
 		const inputText = ref('');
+		const bookTitle = ref('');
 		const markdownText = ref('');
 
 		const handleConvert = () => {
-			markdownText.value = convertWereadNote(inputText.value);
+			const weread = convertWereadNote(inputText.value);
+			markdownText.value = weread.markdown;
+			bookTitle.value = weread.bookTitle;
 		};
 
 		const handleDownload = () => {
@@ -19,7 +22,7 @@ export default defineComponent({
 			const url = URL.createObjectURL(blob);
 			const a = document.createElement('a');
 			a.href = url;
-			a.download = '微信读书笔记.md';
+			a.download = `${bookTitle.value}.md`;
 			document.body.appendChild(a);
 			a.click();
 			document.body.removeChild(a);

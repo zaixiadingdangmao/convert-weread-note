@@ -3,7 +3,6 @@ const LINE_SPLIT_TAG = '\n';
 const CHAPTER_SPLIT_TAG = '◆';
 
 export function convertWereadNote(note) {
-	console.log(JSON.stringify(note));
 	let markdown = '';
 
 	// 把多余两行换行符换成两行
@@ -11,7 +10,6 @@ export function convertWereadNote(note) {
 
 	// 按照空行分割成行
 	const lines = note.split(EMPTY_SPLIT_LINE);
-	console.log('🚀 ~ convertWereadNote ~ lines:', lines);
 	const { bookTitle, author, noteCount, formattedDate } =
 		generateBookInfo(lines);
 
@@ -124,7 +122,10 @@ export function convertWereadNote(note) {
 		markdown += `---\n\n_${source}_${LINE_SPLIT_TAG}`;
 	}
 
-	return markdown;
+	return {
+		bookTitle: bookTitle.replace(/[《》]/g, ''),
+		markdown,
+	};
 }
 
 const generateBookInfo = (lines) => {
