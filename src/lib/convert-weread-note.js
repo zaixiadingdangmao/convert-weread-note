@@ -16,7 +16,6 @@ export function convertWereadNote(note) {
 	markdown += `# ${bookTitle}${EMPTY_SPLIT_LINE}`;
 	markdown += `> 书名：${bookTitle}${LINE_SPLIT_TAG}> 作者：${author}${LINE_SPLIT_TAG}> 数量：${noteCount}${LINE_SPLIT_TAG}> 时间：${formattedDate}${EMPTY_SPLIT_LINE}`;
 	const chapterLines = lines.slice(2);
-
 	const comments = [];
 	const annotations = [];
 	let source = '';
@@ -63,7 +62,6 @@ export function convertWereadNote(note) {
 				// 获取作者和原文标题
 				while (i + 1 < chapterLines.length) {
 					const nextLine = chapterLines[i + 1].trim();
-					if (!nextLine) break;
 					if (nextLine.startsWith(CHAPTER_SPLIT_TAG)) break;
 
 					if (nextLine.startsWith('原文：')) {
@@ -98,14 +96,12 @@ export function convertWereadNote(note) {
 
 		markdown += `### ${line}${EMPTY_SPLIT_LINE}`;
 	}
-
 	// 将批注添加到markdown中
 	if (annotations.length > 0) {
 		markdown += `## 想法${EMPTY_SPLIT_LINE}`;
 		annotations.forEach((annotation) => {
-			const [time, content] = annotation.annotation.split('\n');
 			markdown += `**${annotation.original}**${EMPTY_SPLIT_LINE}`;
-			markdown += `> ${time}${LINE_SPLIT_TAG}> ${content}${EMPTY_SPLIT_LINE}`;
+			markdown += `> ${annotation.annotation}${EMPTY_SPLIT_LINE}`;
 		});
 	}
 

@@ -1,6 +1,5 @@
 import { defineComponent, ref } from 'vue';
 import { convertWereadNote } from './lib/convert-weread-note';
-
 export default defineComponent({
 	name: 'App',
 	props: {},
